@@ -40,3 +40,4 @@ while True:
     break
 
 print "Thanks for playing!"
+#https://www.dataquest.io/blog/python-projects-for-beginners/
