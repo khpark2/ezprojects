@@ -43,7 +43,9 @@ mainframe.rowconfigure(0,weight=1)
 
 human_pick = StringVar()
 computer_pick = StringVar()
-result_set = StringVar() 
+result_set = StringVar()
+human_pick.set("Rock")
+
 
 Label(mainframe, text='Player').grid(column=1, row = 1, sticky = W)
 Radiobutton(mainframe, text ='Rock', variable = human_pick, value = 'Rock').grid(column=1, row=2, sticky=W)
@@ -68,5 +70,3 @@ Label(mainframe, textvariable = result_set).grid(column = 1, row = 5, sticky =W,
 root.mainloop() # tells computer to run GUI
 
  
-
-
