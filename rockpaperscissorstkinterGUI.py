@@ -2,15 +2,15 @@ from Tkinter import *
 from ttk import *
 import random
 
+player_score = 0
+computer_score = 0
+  
 def play():
   picks = ["Rock", "Paper", "Scissors"]
   computer_pick = random.choice(picks)
   user_pick = human_pick.get()
-  
-##  while user_pick not in picks: #checks if input is valid
-##    print "That is not how you play!"
-##    user_pick = raw_input("Let's play rock, paper, scissors! Choose your weapon wisely! ")
-##    user_pick = user_pick.lower()
+  player_score = 0
+  computer_score = 0
 
   if user_pick == computer_pick: #checks who wins
     result_set.set("Computer chose %s. It's a draw!" % (computer_pick)) 
@@ -18,20 +18,28 @@ def play():
   if user_pick == "Paper":
     if computer_pick == "Scissors":
       result_set.set("Computer chose scissors. You lose!")
+      computer_score += 1
     elif computer_pick == "Rock":
       result_set.set("Computer chose rock. You win!")
+      player_score += 1
   
   if user_pick == "Rock":
     if computer_pick == "Scissors":
       result_set.set("Computer chose scissors. You win!")
+      player_score += 1
     elif computer_pick == "Paper":
       result_set.set("Computer chose paper. You lose!")
+      computer_score += 1
   
   if user_pick == "Scissors":
     if computer_pick == "Rock":
       result_set.set("Computer chose rock. You lose!")
+      computer_score += 1
     elif computer_pick == "Paper":
       result_set.set("Computer chose paper. You win!")
+      player_score += 1
+      
+    return player_score, computer_score
 
 root = Tk() # sets up root window
 root.title ('Rock Paper Scissors') # adds title to the window 'Rock Paper Scissors'
@@ -44,6 +52,8 @@ mainframe.rowconfigure(0,weight=1)
 human_pick = StringVar()
 computer_pick = StringVar()
 result_set = StringVar()
+
+
 human_pick.set("Rock")
 
 
@@ -60,6 +70,8 @@ Radiobutton(mainframe, text ='Scissors', variable = computer_pick, value = 'Scis
 Button(mainframe, text="Play", command = play).grid(column = 2, row = 7, sticky = W)
 
 Label(mainframe, textvariable = result_set).grid(column = 1, row = 5, sticky =W, columnspan = 2)
+Label(mainframe, text='Player Score: %d' % (player_score)).grid(column=3, row = 10, sticky = W)
+Label(mainframe, text='Computer Score: %d' % (computer_score)).grid(column=1, row = 10, sticky = W)
 
 # label - method to display text on window 
 # mainframe - where the widget will go, in this case the mainframe
