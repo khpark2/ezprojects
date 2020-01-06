@@ -1,8 +1,37 @@
-# game with GUI
-
 from Tkinter import *
 from ttk import *
 import random
+
+def play():
+  picks = ["Rock", "Paper", "Scissors"]
+  computer_pick = random.choice(picks)
+  user_pick = human_pick.get()
+  
+##  while user_pick not in picks: #checks if input is valid
+##    print "That is not how you play!"
+##    user_pick = raw_input("Let's play rock, paper, scissors! Choose your weapon wisely! ")
+##    user_pick = user_pick.lower()
+
+  if user_pick == computer_pick: #checks who wins
+    result_set.set("Computer chose %s. It's a draw!" % (computer_pick)) 
+  
+  if user_pick == "Paper":
+    if computer_pick == "Scissors":
+      result_set.set("Computer chose scissors. You lose!")
+    elif computer_pick == "Rock":
+      result_set.set("Computer chose rock. You win!")
+  
+  if user_pick == "Rock":
+    if computer_pick == "Scissors":
+      result_set.set("Computer chose scissors. You win!")
+    elif computer_pick == "Paper":
+      result_set.set("Computer chose paper. You lose!")
+  
+  if user_pick == "Scissors":
+    if computer_pick == "Rock":
+      result_set.set("Computer chose rock. You lose!")
+    elif computer_pick == "Paper":
+      result_set.set("Computer chose paper. You win!")
 
 root = Tk() # sets up root window
 root.title ('Rock Paper Scissors') # adds title to the window 'Rock Paper Scissors'
@@ -12,7 +41,23 @@ mainframe.grid(column=0, row = 0, sticky=(N,W,E,S)) # choose grid layout, sticky
 mainframe.columnconfigure(0, weight=1) 
 mainframe.rowconfigure(0,weight=1)
 
-Label(mainframe, text='Player').grid(column=1, row = 1, sticky = W) 
+human_pick = StringVar()
+computer_pick = StringVar()
+result_set = StringVar() 
+
+Label(mainframe, text='Player').grid(column=1, row = 1, sticky = W)
+Radiobutton(mainframe, text ='Rock', variable = human_pick, value = 'Rock').grid(column=1, row=2, sticky=W)
+Radiobutton(mainframe, text ='Paper', variable = human_pick, value = 'Paper').grid(column=1, row=3, sticky=W)
+Radiobutton(mainframe, text ='Scissors', variable = human_pick, value = 'Scissors').grid(column=1, row=4, sticky=W)
+
+Label(mainframe, text='Computer').grid(column=3, row = 1, sticky = W)
+Radiobutton(mainframe, text ='Rock', variable = computer_pick, value = 'Rock').grid(column=3, row=2, sticky=W)
+Radiobutton(mainframe, text ='Paper', variable = computer_pick, value = 'Paper').grid(column=3, row=3, sticky=W)
+Radiobutton(mainframe, text ='Scissors', variable = computer_pick, value = 'Scissors').grid(column=3, row=4, sticky=W)
+
+Button(mainframe, text="Play", command = play).grid(column = 2, row = 7, sticky = W)
+
+Label(mainframe, textvariable = result_set).grid(column = 1, row = 5, sticky =W, columnspan = 2)
 
 # label - method to display text on window 
 # mainframe - where the widget will go, in this case the mainframe
@@ -21,3 +66,7 @@ Label(mainframe, text='Player').grid(column=1, row = 1, sticky = W)
 # sticky = W - text will be aligned with left side of window (West)
 
 root.mainloop() # tells computer to run GUI
+
+ 
+
+
