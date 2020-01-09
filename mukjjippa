@@ -3,6 +3,8 @@ picks = ["rock", "paper", "scissors"]
 computer_pick = random.choice(picks)
 
 while True:
+  
+  turn_counter = 0
 
   user_pick = raw_input("묵찌빠! ")
   user_pick = user_pick.lower()
@@ -13,6 +15,7 @@ while True:
     user_pick = user_pick.lower()
 
   if user_pick == computer_pick: #checks who wins
+    if turn_counter == 0:
     print "Computer chose %s. It's a draw!" % (computer_pick)
   
   if user_pick == "paper":
