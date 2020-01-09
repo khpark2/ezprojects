@@ -1,45 +1,82 @@
 import random
 picks = ["rock", "paper", "scissors"]
-computer_pick = random.choice(picks)
+turn_counter = 0
 
 while True:
-  
-  turn_counter = 0
 
-  user_pick = raw_input("묵찌빠! ")
-  user_pick = user_pick.lower()
 
-  while user_pick not in picks: #checks if input is valid
-    print "불가능한 선택입니다."
-    user_pick = raw_input("묵찌빠! ")
+    turn = "Player"
+    user_pick = raw_input("Mukjjippa! ")
     user_pick = user_pick.lower()
+    computer_pick = random.choice(picks)
 
-  if user_pick == computer_pick: #checks who wins
-    if turn_counter == 0:
-    print "Computer chose %s. It's a draw!" % (computer_pick)
-  
-  if user_pick == "paper":
-    if computer_pick == "scissors":
-      print "Computer chose scissors. You lose!"
-    elif computer_pick == "rock":
-      print "Computer chose rock. You win!"
-  
-  if user_pick == "rock":
-    if computer_pick == "scissors":
-      print "Computer chose scissors. You win!"
-    elif computer_pick == "paper":
-      print "Computer chose paper. You lose!"
-  
-  if user_pick == "scissors":
-    if computer_pick == "rock":
-      print "Computer chose rock. You lose!"
-    elif computer_pick == "paper":
-      print "Computer chose paper. You win!"       
+    while user_pick not in picks: #checks if input is valid
+        print "That's not a valid choice."
+        user_pick = raw_input("Mukjjippa! ")
+        user_pick = user_pick.lower()
 
-  rematch = raw_input("Do you want to play again? y/n ") #asking user for a rematch
-  rematch = rematch.lower()
-  
-  if rematch == "n":
-    break
+    if user_pick == computer_pick: #checks who wins
+        if turn_counter == 0:
+            print "Computer chose %s. Start again!" % (computer_pick)
+            computer_pick = random.choice(picks)
+
+        elif turn_counter != 0:
+            if turn == "Player":
+                print "Computer chose %s. You win!" % (computer_pick)
+                rematch = raw_input("Do you want to play again? y/n ") #asking user for a rematch
+                rematch = rematch.lower()
+
+                if rematch == "n":
+                    break
+
+            elif turn == "Computer":
+                print "Computer chose %s. You lose!" % (computer_pick)
+                rematch = raw_input("Do you want to play again? y/n ") #asking user for a rematch
+                rematch = rematch.lower()
+
+                if rematch == "n":
+                    break
+
+
+    elif user_pick == "paper":
+
+        if computer_pick == "scissors":
+            print "Computer chose scissors. It's the computer's turn!"
+            turn = "Computer"
+
+        elif computer_pick == "rock":
+            print "Computer chose scissors. It's your turn!"
+            turn = "Player"
+
+        computer_pick = random.choice(picks)
+        turn_counter += 1
+
+    elif user_pick == "rock":
+
+        if computer_pick == "scissors":
+            print "Computer chose scissors. It's your turn!"
+            turn = "Player"
+
+        elif computer_pick == "paper":
+            print "Computer chose paper. It's the computer's turn!"
+            turn = "Computer"
+
+        computer_pick = random.choice(picks)
+        turn_counter += 1
+
+    elif user_pick == "scissors":
+
+        if computer_pick == "rock":
+            print "Computer chose rock. It's the computer's turn!"
+            turn = "Computer"
+
+        elif computer_pick == "paper":
+            print "Computer chose paper. It's your turn!"
+            turn = "Player"
+
+        computer_pick = random.choice(picks)
+
+    turn_counter += 1
 
 print "Thanks for playing!"
+print turn_counter
