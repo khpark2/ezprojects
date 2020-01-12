@@ -4,18 +4,21 @@ turn_counter = 0
 turn = ""
 
 while True:
+  computer_pick = random.choice(picks)
   user_pick = raw_input("Mukjjippa! ")
   user_pick = user_pick.lower()
-  computer_pick = random.choice(picks)
-  print turn_counter
 
   while user_pick not in picks: #checks if input is valid
         print "That's not a valid choice."
         user_pick = raw_input("Mukjjippa! ")
         user_pick = user_pick.lower()
 
-  if turn_counter == 0 and user_pick == computer_pick:
+  while turn_counter == 0 and user_pick == computer_pick:
+    print computer_pick
     print "Computer chose %s. Start again!" % (computer_pick)
+    user_pick = raw_input("Mukjjippa! ")
+    user_pick = user_pick.lower()
+    computer_pick = random.choice(picks)
 
   if user_pick != computer_pick:
 
@@ -47,6 +50,9 @@ while True:
         print "Computer chose paper. It's your turn!"
         turn = "Player"
 
+    turn_counter += 1 # increases turn counter, showing it is not first turn
+
+
   if turn_counter != 0 and user_pick == computer_pick: # when both choose the same
     turn_counter = 0
     
@@ -59,12 +65,9 @@ while True:
     rematch = raw_input("Do you want to play again? Enter n if you want to quit. ") #asking user for a rematch
     rematch = rematch.lower()
 
-    turn = ""
+    turn = "" # resets turn variable
 
     if rematch == "n":
       break
-
-  computer_pick = random.choice(picks) # resets pick for computer
-  turn_counter += 1 # increases turn counter, showing it is not first turn
-
+  
 print "Thanks for playing!"
