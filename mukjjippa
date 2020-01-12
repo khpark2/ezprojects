@@ -1,82 +1,70 @@
 import random
 picks = ["rock", "paper", "scissors"]
 turn_counter = 0
+turn = ""
 
 while True:
+  user_pick = raw_input("Mukjjippa! ")
+  user_pick = user_pick.lower()
+  computer_pick = random.choice(picks)
+  print turn_counter
 
-
-    turn = "Player"
-    user_pick = raw_input("Mukjjippa! ")
-    user_pick = user_pick.lower()
-    computer_pick = random.choice(picks)
-
-    while user_pick not in picks: #checks if input is valid
+  while user_pick not in picks: #checks if input is valid
         print "That's not a valid choice."
         user_pick = raw_input("Mukjjippa! ")
         user_pick = user_pick.lower()
 
-    if user_pick == computer_pick: #checks who wins
-        if turn_counter == 0:
-            print "Computer chose %s. Start again!" % (computer_pick)
-            computer_pick = random.choice(picks)
+  if turn_counter == 0 and user_pick == computer_pick:
+    print "Computer chose %s. Start again!" % (computer_pick)
 
-        elif turn_counter != 0:
-            if turn == "Player":
-                print "Computer chose %s. You win!" % (computer_pick)
-                rematch = raw_input("Do you want to play again? y/n ") #asking user for a rematch
-                rematch = rematch.lower()
+  if user_pick != computer_pick:
 
-                if rematch == "n":
-                    break
+    if user_pick == "paper": # case when user picks paper
+      if computer_pick == "scissors":
+        print "Computer chose scissors. It's the computer's turn!"
+        turn = "Computer"
 
-            elif turn == "Computer":
-                print "Computer chose %s. You lose!" % (computer_pick)
-                rematch = raw_input("Do you want to play again? y/n ") #asking user for a rematch
-                rematch = rematch.lower()
+      elif computer_pick == "rock":
+        print "Computer chose rock. It's your turn!"
+        turn = "Player"
+    
+    elif user_pick == "rock": # case when user picks rock
+      if computer_pick == "scissors":
+        print "Computer chose scissors. It's your turn!"
+        turn = "Player"
 
-                if rematch == "n":
-                    break
+      elif computer_pick == "paper":
+        print "Computer chose paper. It's the computer's turn!"
+        turn = "Computer"
+      
+    elif user_pick == "scissors": # case when user picks scissors
 
+      if computer_pick == "rock":
+        print "Computer chose rock. It's the computer's turn!"
+        turn = "Computer"
 
-    elif user_pick == "paper":
+      elif computer_pick == "paper":
+        print "Computer chose paper. It's your turn!"
+        turn = "Player"
 
-        if computer_pick == "scissors":
-            print "Computer chose scissors. It's the computer's turn!"
-            turn = "Computer"
+  if turn_counter != 0 and user_pick == computer_pick: # when both choose the same
+    turn_counter = 0
+    
+    if turn == "Player":
+      print "Computer chose %s. You win!" % (computer_pick)
 
-        elif computer_pick == "rock":
-            print "Computer chose scissors. It's your turn!"
-            turn = "Player"
+    elif turn == "Computer":
+      print "Computer chose %s. You lose!" % (computer_pick)
 
-        computer_pick = random.choice(picks)
-        turn_counter += 1
+    rematch = raw_input("Do you want to play again? Enter n if you want to quit. ") #asking user for a rematch
+    rematch = rematch.lower()
 
-    elif user_pick == "rock":
+    turn = ""
 
-        if computer_pick == "scissors":
-            print "Computer chose scissors. It's your turn!"
-            turn = "Player"
+    if rematch == "n":
+      break
 
-        elif computer_pick == "paper":
-            print "Computer chose paper. It's the computer's turn!"
-            turn = "Computer"
-
-        computer_pick = random.choice(picks)
-        turn_counter += 1
-
-    elif user_pick == "scissors":
-
-        if computer_pick == "rock":
-            print "Computer chose rock. It's the computer's turn!"
-            turn = "Computer"
-
-        elif computer_pick == "paper":
-            print "Computer chose paper. It's your turn!"
-            turn = "Player"
-
-        computer_pick = random.choice(picks)
-
-    turn_counter += 1
+  computer_pick = random.choice(picks) # resets pick for computer
+  turn_counter += 1 # increases turn counter, showing it is not first turn
 
 print "Thanks for playing!"
-print turn_counter
