@@ -1,9 +1,8 @@
 board_size = raw_input("What is the desired board size? ")
 new = int(board_size)
-def game_board_generator(new):
 
-  while new != int:
-    board_size = raw_input("That is not a number! ")
+def game_board_generator():
+
   horizontal = " ---"
   vertical = "|   "
   board = ""
@@ -17,4 +16,4 @@ def game_board_generator(new):
 
   return board
   
-game_board_generator(new)
+game_board_generator()
