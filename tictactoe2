@@ -1,0 +1,20 @@
+board = []
+
+first_row = board[0]
+second_row = board[1]
+third_row = board[2]
+
+def check_winner(board):
+
+  # token_counter = 0
+
+  for row in board: # go through each row
+    if row[0] == row[1] and row[0] == row[2]: # checks if row is all the same
+      print "Player %d won!" % (row[0])
+      break
+    else:
+      pass
+
+  for row in board:
+    for column in range(3):
+      if 
