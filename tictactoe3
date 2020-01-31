@@ -1,37 +1,50 @@
 def game_with_user_input(game):
 
   turn_counter = 1
+  user_pick_list = []
+  
   while turn_counter <= 9: 
+
+    user_pick = raw_input("Make your choice in the format 'row, column': ")
+    user_pick = user_pick.strip()
+    user_pick = user_pick.split(',')
+
+    for i in user_pick: # convert input into intergers
+        user_pick_list.append(int(i)-1)
 
     if turn_counter % 2 != 0: # odd turn counter means it is Player 1's turn
 
-      user_pick = raw_input("Make your choice in the format 'row, column': ")
-      user_pick = user_pick.strip()
-      user_pick = user_pick.split()
-      
-      for string in user_pick: # convert input into intergers
+      while game[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
         user_pick_list = []
-        user_pick_list.append(int(string)-1)
-        return user_pick_list
-      
+        user_pick = raw_input("That space is already taken. Make your choice in the format 'row, column': ")
+        user_pick = user_pick.strip()
+        user_pick = user_pick.split(',')
+
+        for i in user_pick: # convert input into intergers
+          user_pick_list.append(int(i)-1)
+
       game[user_pick_list[0]][user_pick_list[1]] = "X"
 
     else: # even turn counter means it is Player 2's turn
-      user_pick = raw_input("Make your choice in the format 'row, column': ")
-      user_pick = user_pick.strip()
-      user_pick = user_pick.split()
-      
-      for string in user_pick: # convert input into intergers
+
+      while game[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
         user_pick_list = []
-        user_pick_list.append(int(string)-1)
-        return user_pick_list
-        
-        game[user_pick_list[0]][user_pick_list[1]] = "O"
+        user_pick = raw_input("That space is already taken. Make your choice in the format 'row, column': ")
+        user_pick = user_pick.strip()
+        user_pick = user_pick.split(',') 
 
+        for i in user_pick: # convert input into intergers
+          user_pick_list.append(int(i)-1)
+
+      game[user_pick_list[0]][user_pick_list[1]] = "O"
+
+
+    print game
     turn_counter += 1
+    user_pick_list = []
 
-game = [[0, 0, 0],
+new_game = [[0, 0, 0],
 	[0, 0, 0],
 	[0, 0, 0]]
 
-game_with_user_input(game)
+game_with_user_input(new_game)
