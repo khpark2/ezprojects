@@ -17,35 +17,34 @@ def game_board_generator():
   return board
 
 def check_winner(board):
-  winner = 0
+  
   for row in board: # row-checker
     if row[0] == row[1] == row[2]: # checks if row is all the same
       if row[0] == 0:
         break
       else:
-        print "Player %d won!" % (row[0])
-        winner += 1
+        if row[0] == "X":
+          print "Player 1 won!"
+        else:
+          print "Player 2 won!"
         break
-      
-
 
   for column in range(3):
     if board[0][column] == board[1][column] == board[2][column]:
       if board[0][column] == 0:
         break
       else:
-        print "Player %d won!" % (board[0][column])
-        winner += 1
-        break
+        if board[0][column] == "X":
+          print "Player 1 won!"
+        else:
+          print "Player 2 won!" 
+      break
   
   if board[0][0] == board[1][1] == board[2][2] or board[0][2] == board[1][1] == board[2][0] and board[0][0] != 0:
     print "Player %d won!" % (board[1][1])
-    winner += 1
 
-  elif winner == 0: # winner counter confirms winner and makes sure both blocks of code don't run
-    print "It is a draw."
 
-def game_with_user_input(game): # output is game
+def game_with_input(board): # output is game
 
   turn_counter = 1
   user_pick_list = []
@@ -61,7 +60,7 @@ def game_with_user_input(game): # output is game
 
     if turn_counter % 2 != 0: # odd turn counter means it is Player 1's turn
 
-      while game[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
+      while board[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
         user_pick_list = []
         user_pick = raw_input("That space is already taken. Make your choice in the format 'row, column': ")
         user_pick = user_pick.strip()
@@ -70,11 +69,11 @@ def game_with_user_input(game): # output is game
         for i in user_pick: # convert input into intergers
           user_pick_list.append(int(i)-1)
 
-      game[user_pick_list[0]][user_pick_list[1]] = "X"
+      board[user_pick_list[0]][user_pick_list[1]] = "X"
 
     else: # even turn counter means it is Player 2's turn
 
-      while game[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
+      while board[user_pick_list[0]][user_pick_list[1]] != 0: # makes user pick again if space is not empty
         user_pick_list = []
         user_pick = raw_input("That space is already taken. Make your choice in the format 'row, column': ")
         user_pick = user_pick.strip()
@@ -83,13 +82,33 @@ def game_with_user_input(game): # output is game
         for i in user_pick: # convert input into intergers
           user_pick_list.append(int(i)-1)
 
-      game[user_pick_list[0]][user_pick_list[1]] = "O"
+      board[user_pick_list[0]][user_pick_list[1]] = "O"
 
 
-    print game
+    for row in board:
+      print row
+
+    check_winner(board)
+
+    if turn_counter == 9:
+      print "It is a draw."
+      break
+      
     turn_counter += 1
     user_pick_list = []
 
-  return game
+  return board
 
 def wanna_play():
+
+  board = [[0, 0, 0],
+	[0, 0, 0],
+	[0, 0, 0]]
+  
+  while True:
+
+    game_with_input(board)
+
+    retry = input("Do you want to play again? Enter n to quit: ")
+    if retry == "n":
+      break
